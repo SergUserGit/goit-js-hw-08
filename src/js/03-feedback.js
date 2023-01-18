@@ -32,7 +32,27 @@ function populateElements() {
   const dateObject = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
   if (dateObject) {
-    formInput.value = dateObject.email;
-    formTextarea.value = dateObject.message;
+    const keysObject = Object.keys(dateObject);
+    const nameInput = formInput.name;
+    const nameTextarea = formTextarea.name;
+
+    if (keysObject.includes(nameInput)) {
+      formInput.value = dateObject[nameInput];
+    } else {
+      formInput.value = '';
+    }
+
+    if (keysObject.includes(nameTextarea)) {
+      formTextarea.value = dateObject[nameTextarea];
+    } else {
+      formTextarea.value = '';
+    }
+
+    for (const key in dateObject) {
+      formDate[key] = dateObject[key];
+    }
+  } else {
+    formInput.value = '';
+    formTextarea.value = '';
   }
 }
